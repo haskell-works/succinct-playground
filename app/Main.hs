@@ -7,9 +7,12 @@ module Main where
 data Binary = Bin Binary Binary | Tip
   deriving Show
 
-encode :: Binary -> [Bool]
-encode (Bin l r) = True : (encode l) ++ (encode r)
-encode Tip = [False]
+louds :: Binary -> [Bool]
+louds binary = True : encode binary
+  where
+    encode :: Binary -> [Bool]
+    encode (Bin l r) = True : (encode l) ++ (encode r)
+    encode Tip = [False]
 
 rank :: Eq a => a -> [a] -> Int -> Int
 rank _ _      0           = 0
