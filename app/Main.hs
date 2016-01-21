@@ -11,11 +11,11 @@ encode :: Binary -> [Bool]
 encode (Bin l r) = True : (encode l) ++ (encode r)
 encode Tip = [False]
 
-rank :: [Bool] -> Int -> Int
-rank _ 0 = 0
-rank (True:xs) i = 1 + (rank xs (i - 1))
-rank (False:xs) i = (rank xs (i - 1))
-rank [] _ = 0
+rank :: Eq a => a -> [a] -> Int -> Int
+rank _ _      0 = 0
+rank a (x:xs) i | a == x = 1 + (rank a xs (i - 1))
+rank a (_:xs) i = (rank a xs (i - 1))
+rank _ []     _ = 0
 
 main :: IO ()
 main = return ()
